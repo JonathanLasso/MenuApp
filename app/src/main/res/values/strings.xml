@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">MenuApp</string>
+
+    <string name="app_name2">EncuestasPreferenciaApp</string>
+    <string name="mensaje_toast">Soy batman xd</string>
+    <string name="titulo_alerta">Datos recopilados</string>
+    <string name="btn_aceptar">Aceptar</string>
+    <string name="error_campos">Campos no seleccionado</string>
+
+    <string name="app_name3">App de conversión de peso</string>
+    <string-array name="unidades_peso">
+        <item>kilogramo(kg)</item>
+        <item>libra(lb)</item>
+        <item>onza(oz)</item>
+        <item>gramo(gr)</item>
+    </string-array>
+    <string name="titulo">Conversión de Peso</string>
+    <string name="unidadDesde">Convertir De:</string>
+    <string name="unidadHacia">Convertir A:</string>
+    <string name="btnTitulo">CONVERTIR</string>
+    <string name="tituloIntegrantes">Integrantes:</string>
+    <string name="Integrante1">De Freitas Ricardo</string>
+    <string name="Integrante2">Lasso Jonathan</string>
+    <string name="Integrante3">Quinto Jonathan</string>
+    <string name="Integrante4">Ramirez Edinson</string>
+    <string name="placeHolder">Ingrese un peso</string>
+    <string name="descripcionImagen">Intercambiar unidades</string>
+    <string name="mensajeError">Error de conversión.</string>
+    <string name="unidadGramos">g</string>
+    <string name="unidadLibra">lb</string>
+    <string name="unidadOnza">oz</string>
+    <string name="unidadKilogramo">kg</string>
+    <string name="formato4Decimales">%1$.1f %2$s = %3$.4f %4$s</string>
+    <string name="formato3Decimales">%1$.1f %2$s = %3$.3f %4$s</string>
+    <string name="formato0Decimales">%1$.1f %2$s = %3$.0f %4$s</string>
+</resources>
