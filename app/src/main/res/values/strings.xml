@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">MenuApp</string>
+    <string name="tvTitutlo" translatable="false">Menú App</string>
+    <string name="tvPregunta" translatable="false">Elige ¿qué aplicación quieres usar?</string>
+    <string name="btnEncuestaApp" translatable="false">Encuestas App</string>
+    <string name="btnConversionPeso" translatable="false">Conversión de peso App</string>
+    <string name="btnConversionMoneda" translatable="false">Conversión de monedas App</string>
 
     <string name="app_name2" translatable="false">EncuestasPreferenciaApp</string>
     <string name="mensaje_toast" translatable="false">Soy batman xd</string>
