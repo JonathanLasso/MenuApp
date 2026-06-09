@@ -33,7 +33,7 @@ class ConversionDePeso : AppCompatActivity() {
 
             // Si hay un texto, ejecutamos la conversión automáticamente
             if (binding.editValor.text.isNotEmpty()) {
-                binding.btnConvertir.performClick()
+                binding.btnConvertirPeso.performClick()
             }
         }
     }
@@ -46,7 +46,7 @@ class ConversionDePeso : AppCompatActivity() {
     }
 
     private fun configurarBotonConvertir() {
-        binding.btnConvertir.setOnClickListener {
+        binding.btnConvertirPeso.setOnClickListener {
             val textoPeso = binding.editValor.text.toString().trim()
 
             if (textoPeso.isNotEmpty()) {

@@ -10,10 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.menuapp.databinding.ActivityConversionDeMonedasBinding // <-- Asegúrate de importar tu clase Binding
+import com.example.menuapp.databinding.ActivityConversionDeMonedasBinding
 
 class ConversionDeMonedas : AppCompatActivity() {
 
@@ -25,34 +24,13 @@ class ConversionDeMonedas : AppCompatActivity() {
 
     // ─── DATOS ────────────────────────────────────────────────
     private val tasas = mapOf(
-        "USD 🇺🇸" to 1.0,
-        "EUR 🇪🇺" to 0.9215,
-        "PAB 🇵🇦" to 1.0,
-        "GBP 🇬🇧" to 0.7892,
-        "JPY 🇯🇵" to 157.42,
-        "CAD 🇨🇦" to 1.3645,
-        "AUD 🇦🇺" to 1.5310,
-        "CHF 🇨🇭" to 0.8974,
-        "CNY 🇨🇳" to 7.2458,
-        "MXN 🇲🇽" to 17.1500,
-        "BRL 🇧🇷" to 5.0820,
-        "COP 🇨🇴" to 3968.00,
-        "ARS 🇦🇷" to 878.50,
-        "CLP 🇨🇱" to 942.30,
-        "PEN 🇵" to 3.7200,
-        "CRC 🇨🇷" to 519.80,
-        "HNL 🇭🇳" to 24.7500,
-        "GTQ 🇬🇹" to 7.7800,
-        "DOP 🇩🇴" to 58.9200,
-        "INR 🇮🇳" to 83.4500,
-        "KRW 🇰🇷" to 1342.00,
-        "SAR 🇸🇦" to 3.7500,
-        "AED 🇦🇪" to 3.6725,
-        "SGD 🇸🇬" to 1.3410,
-        "HKD 🇭🇰" to 7.8210,
-        "NOK 🇳🇴" to 10.5600,
-        "SEK 🇸🇪" to 10.4200,
-        "NZD 🇳🇿" to 1.6290
+        "USD 🇺🇸" to 1.0, "EUR 🇪🇺" to 0.9215, "PAB 🇵🇦" to 1.0, "GBP 🇬🇧" to 0.7892,
+        "JPY 🇯🇵" to 157.42, "CAD 🇨🇦" to 1.3645, "AUD 🇦🇺" to 1.5310, "CHF 🇨🇭" to 0.8974,
+        "CNY 🇨🇳" to 7.2458, "MXN 🇲🇽" to 17.1500, "BRL 🇧🇷" to 5.0820, "COP 🇨🇴" to 3968.00,
+        "ARS 🇦🇷" to 878.50, "CLP 🇨🇱" to 942.30, "PEN 🇵🇪" to 3.7200, "CRC 🇨🇷" to 519.80,
+        "HNL HN" to 24.7500, "GTQ 🇬🇹" to 7.7800, "DOP 🇩🇴" to 58.9200, "INR 🇮🇳" to 83.4500,
+        "KRW 🇰🇷" to 1342.00, "SAR 🇸🇦" to 3.7500, "AED 🇦🇪" to 3.6725, "SGD 🇸🇬" to 1.3410,
+        "HKD 🇭🇰" to 7.8210, "NOK 🇳🇴" to 10.5600, "SEK 🇸🇪" to 10.4200, "NZD 🇳🇿" to 1.6290
     )
 
     private val monedas: List<String> by lazy { tasas.keys.toList() }
@@ -61,39 +39,89 @@ class ConversionDeMonedas : AppCompatActivity() {
 
     // ─── LIFECYCLE ────────────────────────────────────────────
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        // Cargar preferencias y aplicar el tema ANTES de super.onCreate
+        val prefs = getSharedPreferences("config_tema_monedas", MODE_PRIVATE)
+        val modoOscuroActivo = prefs.getBoolean("modo_oscuro_propio", false)
+        val modoDeseado = if (modoOscuroActivo) {
+            androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+        }
+        if (androidx.appcompat.app.AppCompatDelegate.getDefaultNightMode() != modoDeseado) {
+            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(modoDeseado)
+        }
         super.onCreate(savedInstanceState)
+        try {
+            binding = ActivityConversionDeMonedasBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            // Desactivar el guardado de estado de raíz en el playerView
+            binding.playerView.let { pv ->
+                pv.isSaveEnabled = false
+                pv.isSaveFromParentEnabled = false
+            }
+            configurarSpinners()
+            configurarSeekBar()
+            configurarBotones()
+            configurarSwitch()
+            configurarSwitchTema()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Si el inflado llega a quejarse, removemos la vista conflictiva en caliente
+            try {
+                binding.playerView.let {
+                    (it.parent as? android.view.ViewGroup)?.removeView(it)
+                }
+            } catch (inner: Exception) { inner.printStackTrace() }
+            mostrarToast("Ajustando interfaz...")
+        }
+    }
 
-        // Inicializar el View Binding
-        binding = ActivityConversionDeMonedasBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // Forzamos al delegado a aplicar el modo noche en los recursos internos
+        delegate.applyDayNight()
 
-        configurarSpinners()
-        configurarSeekBar()
-        configurarBotones()
-        configurarSwitch()
-        configurarSwitchTema()
+        // Liberamos el video un milisegundo e inmediatamente recreamos la vista
+        // de forma segura para aplicar los nuevos colores sin cerrar la actividad.
+        liberandoYRecrear()
+    }
+
+    private fun liberandoYRecrear() {
+        liberarReproductor()
+        recreate() // Recrea la actividad limpiamente aplicando el nuevo tema visual
     }
 
     // ─── INICIALIZAR REPRODUCTOR ──────────────────────────────
     private fun inicializarReproductor() {
-        if (player == null) {
-            player = ExoPlayer.Builder(this).build().also { exoPlayer ->
-                binding.playerView.player = exoPlayer
+        if (player == null && ::binding.isInitialized && binding.playerView != null) {
+            try {
+                player = ExoPlayer.Builder(this).build().also { exoPlayer ->
+                    binding.playerView.player = exoPlayer
+                    val pathLocal = "android.resource://$packageName/${R.raw.video_local}"
+                    val mediaItem = MediaItem.fromUri(pathLocal)
 
-                val pathLocal = "android.resource://$packageName/${R.raw.video_local}"
-                val mediaItem = MediaItem.fromUri(pathLocal)
-
-                exoPlayer.setMediaItem(mediaItem)
-                exoPlayer.prepare()
-                exoPlayer.playWhenReady = false
+                    exoPlayer.setMediaItem(mediaItem)
+                    exoPlayer.prepare()
+                    exoPlayer.playWhenReady = false
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
     private fun liberarReproductor() {
+        // Asegurar que limpiamos las referencias de la vista primero
+        if (::binding.isInitialized && binding.playerView != null) {
+            binding.playerView.player = null
+        }
         player?.let { exoPlayer ->
-            exoPlayer.release()
+            try {
+                exoPlayer.stop() // Detener antes de liberar ayuda a mitigar fallos de ciclo de vida
+                exoPlayer.release()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
             player = null
         }
     }
@@ -105,19 +133,17 @@ class ConversionDeMonedas : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (player == null) {
-            inicializarReproductor()
-        }
+        inicializarReproductor()
     }
 
     override fun onStop() {
-        super.onStop()
         liberarReproductor()
+        super.onStop()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         liberarReproductor()
+        super.onDestroy()
     }
 
     // ─── CONFIGURAR SPINNERS ──────────────────────────────────
@@ -155,24 +181,25 @@ class ConversionDeMonedas : AppCompatActivity() {
         binding.btnIntercambiar.setOnClickListener { intercambiar() }
         binding.btnIdiomaEN.setOnClickListener     { idiomaEn() }
         binding.btnIdiomaES.setOnClickListener     { idiomaES() }
-        binding.btnVolverMenu.setOnClickListener { volverAlMenu() }
+        binding.btnVolverMenu.setOnClickListener   { volverAlMenu() }
     }
 
     private fun volverAlMenu(){
-        val intent = Intent(
-            this,
-            MainActivity::class.java
-        )
+        liberarReproductor()
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     // ─── Idioma ────────────────────────────────────────────
     private fun idiomaEn(){
+        liberarReproductor()
         androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
             androidx.core.os.LocaleListCompat.forLanguageTags("en")
         )
     }
     private fun idiomaES(){
+        liberarReproductor()
         androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
             androidx.core.os.LocaleListCompat.forLanguageTags("es")
         )
@@ -297,30 +324,39 @@ class ConversionDeMonedas : AppCompatActivity() {
         }
     }
 
-    // Modo oscuro
+    // ─── MODO OSCURO ──────────────
     private fun configurarSwitchTema() {
-        val prefs = getSharedPreferences("config_tema", MODE_PRIVATE)
-        val modoGuardado = prefs.getInt("modo_noche", androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        val prefs = getSharedPreferences("config_tema_monedas", MODE_PRIVATE)
+        val modoOscuroActivo = prefs.getBoolean("modo_oscuro_propio", false)
 
-        if (modoGuardado == androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-            val uiModeActual = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
-            binding.switchTema.isChecked = uiModeActual == android.content.res.Configuration.UI_MODE_NIGHT_YES
-        } else {
-            binding.switchTema.isChecked = modoGuardado == androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-        }
+        binding.switchTema.setOnCheckedChangeListener(null)
+        binding.switchTema.isChecked = modoOscuroActivo
 
         binding.switchTema.setOnCheckedChangeListener { _, isChecked ->
-            val nuevoModo = if (isChecked) {
+            // Guardar la preferencia
+            prefs.edit().putBoolean("modo_oscuro_propio", isChecked).apply()
+
+            // Definir el modo nuevo
+            val modoNuevo = if (isChecked) {
                 androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
             } else {
                 androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
             }
 
-            prefs.edit().putInt("modo_noche", nuevoModo).apply()
+            if (androidx.appcompat.app.AppCompatDelegate.getDefaultNightMode() != modoNuevo) {
+                // Liberar por completo el reproductor de video ANTES del cambio
+                liberarReproductor()
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(nuevoModo)
-            }, 120)
+                // Aplicar el modo nocturno
+                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(modoNuevo)
+
+                // Reiniciar la actividad de forma manual y limpia, destruyendo los estados guardados
+                val intent = Intent(this, ConversionDeMonedas::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                startActivity(intent)
+                finish()
+                overridePendingTransition(0, 0) // Evita parpadeos molestos
+            }
         }
     }
 

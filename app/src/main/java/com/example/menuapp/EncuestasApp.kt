@@ -77,18 +77,13 @@ class EncuestasApp : AppCompatActivity() {
         val pasatiempo = binding.spinnerPasatiempos.selectedItem.toString()
         val practicaDeporte = if (binding.switchDeporte.isChecked) "Sí" else "No"
         val comidaSeleccionadaId = binding.radioGroupComida.checkedRadioButtonId
-
-        // Validación de campos vacíos
         if (nombre.isEmpty() || fechaNacimiento.isEmpty() || comidaSeleccionadaId == -1) {
             Toast.makeText(this, getString(R.string.error_campos), Toast.LENGTH_SHORT).show()
             return
         }
-
-        // Buscamos el RadioButton seleccionado de forma segura mediante el binding del contenedor
         val radioButtonSeleccionado =
             binding.radioGroupComida.findViewById<RadioButton>(comidaSeleccionadaId)
         val comidaSeleccionada = radioButtonSeleccionado?.text.toString()
-
         val mensaje = """
             Nombre: $nombre
             Comida favorita: $comidaSeleccionada
@@ -96,7 +91,6 @@ class EncuestasApp : AppCompatActivity() {
             Practica deporte: $practicaDeporte
             Fecha de nacimiento: $fechaNacimiento
         """.trimIndent()
-
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.titulo_alerta))
             .setMessage(mensaje)
