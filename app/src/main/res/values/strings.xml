@@ -1,36 +1,84 @@
 <resources>
-    <string name="app_name">MenuApp</string>
+    <string name="app_name" translatable="false">MenuApp</string>
 
-    <string name="app_name2">EncuestasPreferenciaApp</string>
-    <string name="mensaje_toast">Soy batman xd</string>
-    <string name="titulo_alerta">Datos recopilados</string>
-    <string name="btn_aceptar">Aceptar</string>
-    <string name="error_campos">Campos no seleccionado</string>
+    <string name="app_name2" translatable="false">EncuestasPreferenciaApp</string>
+    <string name="mensaje_toast" translatable="false">Soy batman xd</string>
+    <string name="titulo_alerta" translatable="false">Datos recopilados</string>
+    <string name="btn_aceptar" translatable="false">Aceptar</string>
+    <string name="error_campos" translatable="false">Campos no seleccionado</string>
 
-    <string name="app_name3">App de conversión de peso</string>
+    <string name="app_name3" translatable="false">App de conversión de peso</string>
     <string-array name="unidades_peso">
         <item>kilogramo(kg)</item>
         <item>libra(lb)</item>
         <item>onza(oz)</item>
         <item>gramo(gr)</item>
     </string-array>
-    <string name="titulo">Conversión de Peso</string>
-    <string name="unidadDesde">Convertir De:</string>
-    <string name="unidadHacia">Convertir A:</string>
-    <string name="btnTitulo">CONVERTIR</string>
-    <string name="tituloIntegrantes">Integrantes:</string>
-    <string name="Integrante1">De Freitas Ricardo</string>
-    <string name="Integrante2">Lasso Jonathan</string>
-    <string name="Integrante3">Quinto Jonathan</string>
-    <string name="Integrante4">Ramirez Edinson</string>
-    <string name="placeHolder">Ingrese un peso</string>
-    <string name="descripcionImagen">Intercambiar unidades</string>
-    <string name="mensajeError">Error de conversión.</string>
-    <string name="unidadGramos">g</string>
-    <string name="unidadLibra">lb</string>
-    <string name="unidadOnza">oz</string>
-    <string name="unidadKilogramo">kg</string>
-    <string name="formato4Decimales">%1$.1f %2$s = %3$.4f %4$s</string>
-    <string name="formato3Decimales">%1$.1f %2$s = %3$.3f %4$s</string>
-    <string name="formato0Decimales">%1$.1f %2$s = %3$.0f %4$s</string>
+    <string name="titulo" translatable="false">Conversión de Peso</string>
+    <string name="unidadDesde" translatable="false">Convertir De:</string>
+    <string name="unidadHacia" translatable="false">Convertir A:</string>
+    <string name="btnTitulo" translatable="false">CONVERTIR</string>
+    <string name="btnVolverMenu" translatable="false">Volver al menú</string>
+    <string name="tituloIntegrantes" translatable="false">Integrantes:</string>
+    <string name="placeHolder" translatable="false">Ingrese un peso</string>
+    <string name="descripcionImagen" translatable="false">Intercambiar unidades</string>
+    <string name="mensajeError" translatable="false">Error de conversión.</string>
+    <string name="unidadGramos" translatable="false">g</string>
+    <string name="unidadLibra" translatable="false">lb</string>
+    <string name="unidadOnza" translatable="false">oz</string>
+    <string name="unidadKilogramo" translatable="false">kg</string>
+    <string name="formato4Decimales" translatable="false">%1$.1f %2$s = %3$.4f %4$s</string>
+    <string name="formato3Decimales" translatable="false">%1$.1f %2$s = %3$.3f %4$s</string>
+    <string name="formato0Decimales" translatable="false">%1$.1f %2$s = %3$.0f %4$s</string>
+
+
+    <string name="app_name4">SmartCurrencyConverter</string>
+
+    <!-- Logo -->
+    <string name="logoDescripcion">Logo de la App</string>
+
+    <!-- TITULOS -->
+
+    <string name="titulo_app">Smart Currency Converter</string>
+
+    <!-- HINTS -->
+
+    <string name="hint_monto">Ingrese el monto</string>
+
+    <!-- BOTONES -->
+
+    <string name="btn_convertir">Convertir</string>
+    <string name="btn_limpiar">Limpiar</string>
+    <string name="btn_volver_menu">Volver al menú</string>
+    <string name="btn_intercambiar">Intercambiar Monedas</string>
+
+    <!-- TEXTOS -->
+    <string name="txt_resultado_inicial">Resultado:</string>
+    <string name="txt_resultado_final" translatable="false">%1$s %2$s</string>
+    <string name="txt_moneda_origen">Moneda Origen</string>
+    <string name="txt_moneda_destino">Moneda Destino</string>
+    <string name="txt_sonido">Sonido ON</string>
+    <string name="txt_sonido_desactivado">Sonido OFF</string>
+    <string name="txt_seekbar_inicial">Nivel de conversión: 1.00x</string>
+    <string name="txt_seekbar_valor">Nivel de conversión: %1$.2fx</string>
+
+    <!-- MENSAJES -->
+
+    <string name="msg_ingrese_monto">Ingrese el monto</string>
+    <string name="msg_valor_invalido">"         Ingrese un valor válido mayor que cero     "</string>
+
+    <string name="msg_monedas_diferentes">"         Seleccione monedas diferentes     "</string>
+
+    <string name="msg_conversion_realizada">"         Conversión realizada     "</string>
+
+    <string name="msg_campos_limpiados">
+        Campos limpiados
+    </string>
+
+    <string name="msg_monedas_intercambiadas">
+        Monedas intercambiadas
+    </string>
+    <string name="txt_idioma">Idioma</string>
+    <string name="txt_tema">Modo oscuro</string>
+    <string name="txtVideo">Video Local</string>
 </resources>

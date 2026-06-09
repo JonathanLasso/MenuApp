@@ -1,9 +1,41 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.MenuApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#6200EE</item>
+        <item name="android:windowBackground">#FFFFFF</item>
     </style>
 
-    <style name="Theme.MenuApp" parent="Base.Theme.MenuApp" />
+    <style name="Theme.MenuApp" parent="Base.Theme.MenuApp">
+        <item name="colorPrimary">#FF007F</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorContainer">#251B45</item>
+        <item name="colorSecondary">#00F5D4</item>
+        <item name="colorOnSecondary">#0B0114</item>
+        <item name="android:windowBackground">#0B0114</item>
+        <item name="colorSurface">#1A0B2E</item>
+        <item name="colorOnSurface">#00F5D4</item>
+        <item name="colorOnSurfaceVariant">#9D4EDD</item>
+    </style>
+
+    <style name="Theme.MenuApp.Encuestas" parent="Base.Theme.MenuApp">
+    </style>
+
+    <style name="Theme.MenuApp.ConversionMonedas" parent="Base.Theme.MenuApp">
+        <item name="colorPrimary">@color/cyan_app</item>
+        <item name="colorSecondary">@color/light_blue_app</item>
+        <item name="android:colorBackground">@color/fondo_claro</item>
+        <item name="colorBackgroundFloating">@color/tarjeta_claro</item>
+        <item name="android:textColorPrimary">@color/texto_claro</item>
+    </style>
+
+    <style name="Theme.MenuApp.Conversion" parent="Base.Theme.MenuApp">
+        <item name="colorPrimary">#3D19FF</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#FFC745</item>
+        <item name="colorSecondaryContainer">#ECEAFF</item>
+        <item name="colorSecondaryVariant" tools:targetApi="l">#ECEAFF</item>
+        <item name="android:windowBackground">#04043B</item>
+        <item name="colorSurface">#04043B</item>
+    </style>
+
 </resources>

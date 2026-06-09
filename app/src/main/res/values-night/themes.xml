@@ -4,4 +4,12 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <style name="Theme.MenuApp.ConversionMonedas" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cyan_app</item>
+        <item name="colorSecondary">@color/light_blue_app</item>
+        <item name="android:colorBackground">@color/fondo_oscuro</item>
+        <item name="colorBackgroundFloating">@color/tarjeta_oscuro</item>
+        <item name="android:textColorPrimary">@color/texto_oscuro</item>
+    </style>
 </resources>
